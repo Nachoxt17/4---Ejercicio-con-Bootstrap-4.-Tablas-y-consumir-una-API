@@ -26,8 +26,7 @@
                     <tr>
                       <th scope="row">${user.name}</th>
                       <td>${user.email}</td>
-                      <td>${user.address.street}</td>
-                      <td>${user.address.suite}</td>
+                      <td>${user.address.street} ${user.address.suite}</td>
                       <td>${user.address.city}</td>
                       <td>${user.address.zipcode}</td>
                     </tr> 
