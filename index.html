@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio con Bootstrap 4. Tablas y consumir una API</title>
+    <!--El Objetivo de este Ejercicio es Aprender y Afianzar Bootstrap 4 
+        Básico y consumir una API  representando en Formato Lista sus Datos y Ordenarlos por Nombre - email - Direccion - Ciuidad  y codigo postal.-->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--Con este Link accedemos a los Archivos de Instalación para CSS de Bootstrap 4 en su Servidor Oficial para tenerlo sin Instalarlo en Nuestra PC-->
+
+</head>
+<body>
+    <h1>Ejercicio con Bootstrap 4. Tablas y consumir una API</h1>
+
+    <table class="table table-bordered table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">E-mail Address</th>
+            <th scope="col">Street Address</th>
+            <th scope="col">Floor</th>
+            <th scope="col">City</th>
+            <th scope="col">Zip Code</th>
+          </tr>
+        </thead>
+
+        <!--Acá debería ir el Código que Representa a los Datos en Forma de Lista en Tablas, se supone que debe ser un "DIV"-->
+        <div id ='userList'></div>
+
+    </table>
+
+   <!-- Si utilizamos componentes de Bootstrap que requieran Javascript debemos agregar estos tres archivos -->
+   <!--Corresponde a JQuery-->
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+   <!--Corresponde a Ajax (Todavía no se que es)-->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+   <!--Corresponde a Javascript-->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   
+   <!--Acá voy a hacer MI JavaScipt, hice una Función que tome como Argumento a la API que es una Lista de Usuarios y Represente los Datos Pedidos en Forma de Tabla.-->
+   <script>
+
+     const USERSLISTAPI = "https://jsonplaceholder.typicode.com/users"; 
+     /*Con Este Link Consumimos esta API cuyos Datos vamos a Representar en Formato Lista por Nombre - email - Direccion - Ciuidad  y codigo postal.*/
+     console.log(USERSLISTAPI);
+     /*Esto es para poder verificar en la Consola del Navegador que la Información del Link llega Correctamente.*/
+
+     fetch(USERSLISTAPI)
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+
+            let userDataList = document.getElementById('userList');
+            /*Con esta Let tomamos la ID del <div> con id='userList' en medio del <body> de HTML para "Ubicar" allí el Código Javascript que tengamos que ejecutar.*/
+
+            userDataList.innerHTML = 
+                `  <tbody>
+                    <tr>
+                      <th scope="row">${data.name}</th>
+                      <td>${data.email}</td>
+                      <td>${data.address.street}</td>
+                      <td>${data.address.suit}</td>
+                      <td>${data.address.city}</td>
+                      <td>${data.address.zipcode}</td>
+                    </tr>
+                  </tbody> `;
+    
+                /*Con este comando (el ".innerHTML") y usando las Comillas hacia la Izquierda (``) le asignamos a una variable Código HTML, CSS y Boostrap para después mostrarlo junto con el
+                Código Javascript con el que Interactúa en el <div> con id='userList' en medio del <body> de HTML.*/
+
+
+            
+            // Work with JSON data here
+            console.log(data);
+        })
+        .catch(err => {
+            // Do something for an error here
+        })
+        
+   </script>
+   
+</body>
+</html>
